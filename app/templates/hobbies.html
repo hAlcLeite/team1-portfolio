@@ -30,11 +30,13 @@
 
     <main>
         <section class="profile small-profile">
-            <h1>{{ profile.name }}'s Hobbies</h1>
+            <h1>Team Hobbies</h1>
             <p class="profile-title">Creative, technical and personal interests</p>
         </section>
 
+        {% for profile in profiles %}
         <section class="content-section">
+            <h2>{{ profile.name }}'s Hobbies</h2>
             <div class="card-grid">
                 {% for hobby in profile.hobbies %}
                     <article class="card hobby-card">
@@ -45,6 +47,7 @@
                 {% endfor %}
             </div>
         </section>
+        {% endfor %}
     </main>
 </body>
 </html>

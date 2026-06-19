@@ -201,8 +201,8 @@ def kriti():
 def hobbies():
     return render_template(
         "hobbies.html",
-        title="Kriti's Hobbies",
+        title="Team Hobbies",
         url=os.getenv("URL"),
         nav_items=NAV_ITEMS,
-        profile=KRITI_PROFILE,
+        profiles=[KRITI_PROFILE, HENRIQUE_PROFILE],
     )
