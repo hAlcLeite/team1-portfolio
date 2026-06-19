@@ -19,7 +19,7 @@ KRITI_PROFILE = {
     "switch_url": "/henrique",
     "switch_name": "Henrique",
     "about": (
-        "Hi, I’m Kriti Behl, I graduated with an M.S. in Computer & Information Science from University of Florida focused on "
+        "Hi, I'm Kriti Behl, I graduated with an M.S. in Computer & Information Science from University of Florida focused on "
         "backend systems, reliability and production engineering. I enjoy building systems "
         "that are easier to debug, operate and scale."
     ),
