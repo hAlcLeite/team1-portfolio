@@ -118,8 +118,30 @@ HENRIQUE_PROFILE = {
             "description": "Automated financial reporting and built data dashboards using VBA and Python. Used Power BI to streamline wealth analytics, client insights, and highlight portfolio exposure risk.",
         },
     ],
-    "education": [],
-    "hobbies": [],
+    "education": [
+        {
+            "school": "University of Western Ontario",
+            "degree": "B.S. Honours Specialization in Computer Science",
+            "description": "Focused on Machine Learning and Data Science.",
+        },
+    ],
+    "hobbies": [
+        {
+            "name": "Guitar",
+            "image": "guitar.jpg",
+            "description": "I enjoy playing guitar, especially classic rock and metal. It's my go-to way to unwind and express myself through music.",
+        },
+        {
+            "name": "Weightlifting",
+            "image": "weightlifting.jpeg",
+            "description": "Taking care of my health is a priority for me. Weightlifting keeps me disciplined, focused, and energized.",
+        },
+        {
+            "name": "Travelling",
+            "image": "travelling.jpg",
+            "description": "I love exploring new places and experiencing different cultures. Every trip brings a fresh perspective and great memories.",
+        },
+    ],
     "places": [],
 }
 
