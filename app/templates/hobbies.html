@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+</head>
+
+<body>
+    <header class="nav-bar">
+        <div class="nav-content">
+            <a class="nav-logo" href="/">
+                <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="MLH logo">
+            </a>
+
+            <nav>
+                {% for item in nav_items %}
+                    <a href="{{ item.url }}">{{ item.label }}</a>
+                {% endfor %}
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="profile small-profile">
+            <h1>{{ profile.name }}'s Hobbies</h1>
+            <p class="profile-title">Creative, technical and personal interests</p>
+        </section>
+
+        <section class="content-section">
+            <div class="card-grid">
+                {% for hobby in profile.hobbies %}
+                    <article class="card hobby-card">
+                        <img src="{{ url_for('static', filename='img/' + hobby.image) }}" alt="{{ hobby.name }}">
+                        <h3>{{ hobby.name }}</h3>
+                        <p>{{ hobby.description }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
