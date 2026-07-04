@@ -1,23 +1,17 @@
 #!/bin/bash
 
-set -e
+# 1. Kill all existing tmux sessions
+tmux kill-server 2>/dev/null
 
-PROJECT_DIR="$HOME/team1-portfolio"
-VENV_DIR="$PROJECT_DIR/python3-virtualenv"
-SESSION_NAME="portfolio"
+# 2. cd into your project folder
+cd ~/team1-portfolio-henrique || exit
 
-tmux kill-server 2>/dev/null || true
+# 3. Grab the latest changes from GitHub and force reset
+git fetch && git reset origin/main --hard
 
-cd "$PROJECT_DIR"
-
-git fetch
-git reset origin/main --hard
-
-if [ ! -d "$VENV_DIR" ]; then
-  python -m venv "$VENV_DIR"
-fi
-
-source "$VENV_DIR/bin/activate"
+# 4. Enter the python virtual environment and install dependencies
+source python3-virtualenv/bin/activate
 pip install -r requirements.txt
 
-tmux new-session -d -s "$SESSION_NAME" "cd '$PROJECT_DIR' && source '$VENV_DIR/bin/activate' && flask run --host=0.0.0.0"
+# 5. Start a new detached Tmux session, activate the venv, and start the Flask server
+tmux new-session -d -s flask_app 'source python3-virtualenv/bin/activate && flask run --host=0.0.0.0'
