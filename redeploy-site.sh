@@ -9,7 +9,10 @@ cd ~/team1-portfolio-henrique || exit
 # 3. Grab the latest changes from GitHub and force reset
 git fetch && git reset origin/main --hard
 
-# 4. Enter the python virtual environment and install dependencies
+# 4. Create virtual environment if it doesn't exist, then activate and install deps
+if [ ! -d "python3-virtualenv" ]; then
+  python3 -m venv python3-virtualenv
+fi
 source python3-virtualenv/bin/activate
 pip install -r requirements.txt
 
