@@ -256,3 +256,10 @@ def get_timeline_post():
         ]
     }
 
+
+
+
+@app.route("/timeline")
+def timeline():
+    return render_template("timeline.html", title="Timeline")
+
