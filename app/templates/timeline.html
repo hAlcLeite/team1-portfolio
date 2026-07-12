@@ -81,16 +81,16 @@
                 const gravatarHash = md5(post.email.trim().toLowerCase());
                 const gravatarUrl = `https://www.gravatar.com/avatar/${gravatarHash}?d=identicon`;
                 
-                const postHtml = \`
+                const postHtml = `
                     <div class="post">
-                        <img src="\${gravatarUrl}" class="avatar" alt="\${post.name}'s avatar">
+                        <img src="${gravatarUrl}" class="avatar" alt="${post.name}'s avatar">
                         <div class="post-content">
-                            <h4 class="post-header">\${post.name}</h4>
-                            <span class="post-date">\${new Date(post.created_at).toLocaleString()}</span>
-                            <p class="post-body">\${post.content}</p>
+                            <h4 class="post-header">${post.name}</h4>
+                            <span class="post-date">${new Date(post.created_at).toLocaleString()}</span>
+                            <p class="post-body">${post.content}</p>
                         </div>
                     </div>
-                \`;
+                `;
                 container.insertAdjacentHTML('beforeend', postHtml);
             });
         } catch (error) {
