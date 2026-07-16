@@ -5,16 +5,25 @@ from dotenv import load_dotenv
 from peewee import *
 from playhouse.shortcuts import model_to_dict
 
+# fixes
+import re
+
+EMAIL_REGEX_FORMAT = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 load_dotenv()
 app = Flask(__name__)
 
-mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
-    user=os.getenv("MYSQL_USER"),
-    password=os.getenv("MYSQL_PASSWORD"),
-    host=os.getenv("MYSQL_HOST"),
-    port=3306,
-    charset='utf8mb4'
-)
+
+if os.getenv("TESTING") == "true":
+    print("Running in test mode")
+    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=True)
+else:
+    mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        host=os.getenv("MYSQL_HOST"),
+        port=3306,
+        charset='utf8mb4'
+    )
 
 print(mydb)
 
@@ -146,16 +155,6 @@ def timeline():
         url=os.getenv("URL")
     )
 
-
-@app.route('/api/timeline_post', methods=['POST'])
-def post_time_line_post():
-    name = request.form['name']
-    email = request.form['email']
-    content = request.form['content']
-    timeline_post = TimelinePost.create(name=name, email=email, content=content)
-    return model_to_dict(timeline_post)
-
-
 @app.route('/api/timeline_post', methods=['GET'])
 def get_time_line_post():
     return {
@@ -172,3 +171,20 @@ def delete_timeline_post(post_id):
     post = TimelinePost.get_by_id(post_id)
     post.delete_instance()
     return {'deleted': True, 'id': post_id}
+
+# fix
+@app.route('/api/timeline_post', methods=['POST'])
+def post_time_line_post():
+    name = request.form.get('name', '').strip()
+    email = request.form.get('email', '').strip()
+    content = request.form.get('content', '').strip()
+
+    if not name:
+        return "Invalid name field", 400
+    if not content:
+        return "Invalid content field", 400
+    if not EMAIL_REGEX_FORMAT.match(email):
+        return "Invalid email field", 400
+
+    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+    return model_to_dict(timeline_post)
