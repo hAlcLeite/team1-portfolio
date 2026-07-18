@@ -1,23 +1,14 @@
 #!/bin/bash
 
-set -e
+# 1. cd into your project folder
+cd ~/team1-portfolio-henrique || exit
 
-PROJECT_DIR="$HOME/team1-portfolio"
-VENV_DIR="$PROJECT_DIR/python3-virtualenv"
-SESSION_NAME="portfolio"
+# 2. Grab the latest changes from GitHub and force reset
+git fetch && git reset origin/main --hard
 
-tmux kill-server 2>/dev/null || true
-
-cd "$PROJECT_DIR"
-
-git fetch
-git reset origin/main --hard
-
-if [ ! -d "$VENV_DIR" ]; then
-  python -m venv "$VENV_DIR"
-fi
-
-source "$VENV_DIR/bin/activate"
+# 3. Ensure dependencies are up to date
+source python3-virtualenv/bin/activate
 pip install -r requirements.txt
 
-tmux new-session -d -s "$SESSION_NAME" "cd '$PROJECT_DIR' && source '$VENV_DIR/bin/activate' && flask run --host=0.0.0.0"
+# 4. Restart the systemd service to pick up changes
+systemctl restart myportfolio
